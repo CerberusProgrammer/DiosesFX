@@ -4,6 +4,14 @@ public class ListaDoble<T> {
 
     Nodo<T> inicio;
 
+    public ListaDoble() {
+        inicio = null;
+    }
+
+    public ListaDoble(Nodo<T> inicio) {
+        this.inicio = inicio;
+    }
+
     public void insertaInicio(T dato) {
         Nodo<T> n = new Nodo<>();
 
@@ -42,15 +50,54 @@ public class ListaDoble<T> {
 
         if (inicio == null) {
             return null;
-        } else if (inicio.getSig() == null) {
-            inicio = null;
         } else {
-            inicio = inicio.getSig();
-            inicio.setAnt(null);
+            if (inicio.getSig() == null) {
+                inicio = null;
+            } else {
+                inicio = inicio.getSig();
+                inicio.setAnt(null);
+            }
         }
 
         return nodo.getInfo();
     }
 
-    
+    public T eliminaFinal() {
+        Nodo<T> nodo = new Nodo<>();
+
+        if (inicio == null)
+            return null;
+        else {
+            if (inicio.getSig() == null)
+                inicio = null;
+            else {
+                Nodo<T> r = inicio;
+
+                while (r.getSig() != null)
+                    r = r.getSig();
+
+                r.getAnt().setSig(null);
+                nodo = r;
+            }
+        }
+
+        return nodo.getInfo();
+    }
+
+    public String toString() {
+        StringBuilder string = new StringBuilder();
+
+        if (inicio == null)
+            return null;
+        else {
+            Nodo<T> nodo = inicio;
+
+            while (nodo != null) {
+                string.append(nodo.getInfo()).append("\n");
+                nodo = nodo.getSig();
+            }
+        }
+
+        return string.toString();
+    }
 }
